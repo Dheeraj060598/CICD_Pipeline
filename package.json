@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "name": "cicd-node-app",
   "version": "1.0.0",
@@ -22,4 +21,3 @@
     "express": "^4.17.1"
   }
 }
->>>>>>> 94e3d46 (First commit from /root/app)
