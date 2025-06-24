@@ -2,14 +2,21 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'dheeraj060598/cicd-node-app'
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id') // Replace with your Jenkins Docker Hub credentials ID
     }
 
     stages {
+
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Dheeraj060598/CICD_Pipeline.git'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build(DOCKER_IMAGE)
+                    sh 'docker build -t dheeraj060598/cicd-node-app .'
                 }
             }
         }
@@ -17,25 +24,19 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials-id') {
-                        docker.image(DOCKER_IMAGE).push('latest')
-                    }
+                    sh "echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
+                    sh 'docker push dheeraj060598/cicd-node-app'
                 }
             }
         }
 
         stage('Deploy Container') {
             steps {
-                sh '''
-                docker stop cicd-node-app || true
-                docker rm cicd-node-app || true
-                docker run -d -p 3000:3000 --name cicd-node-app ${DOCKER_IMAGE}
-                '''
+                script {
+                    sh 'docker rm -f cicd-node-app || true'
+                    sh 'docker run -d --name cicd-node-app -p 3000:3000 dheeraj060598/cicd-node-app'
+                }
             }
         }
     }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> ed80acfad34f3606216ca013a4cf7a2a6f1577e6
