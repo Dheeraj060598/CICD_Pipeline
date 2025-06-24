@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git https://github.com/Dheeraj060598/CICD_Pipeline.git
+                git url: 'https://github.com/Dheeraj060598/CICD_Pipeline.git'
             }
         }
 
