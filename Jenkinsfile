@@ -6,6 +6,12 @@ pipeline {
     }
 
     stages {
+        stage('Clone Repository') {
+            steps {
+                git url: 'https://github.com/Dheeraj060598/CICD_Pipeline.git'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
