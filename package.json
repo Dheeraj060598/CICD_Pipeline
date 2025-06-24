@@ -1,18 +1,7 @@
 {
   "name": "cicd-node-app",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "express": "^4.17.1"
-  }
-}
-=======
-{
-  "name": "cicd-node-app",
-  "version": "1.0.0",
+  "description": "Simple Node.js App for CI/CD",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
