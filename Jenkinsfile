@@ -2,16 +2,10 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'your-dockerhub-username/cicd-node-app'
+        DOCKER_IMAGE = 'dheeraj060598/cicd-node-app'
     }
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                git url: 'https://github.com/Dheeraj060598/CICD_Pipeline.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
@@ -41,3 +35,4 @@ pipeline {
         }
     }
 }
+
