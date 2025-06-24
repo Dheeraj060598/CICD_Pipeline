@@ -6,7 +6,6 @@ pipeline {
     }
 
     stages {
-
         stage('Checkout Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/Dheeraj060598/CICD_Pipeline.git'
@@ -34,11 +33,8 @@ pipeline {
         stage('Deploy Container') {
             steps {
                 script {
-                    sh '''
-                        docker stop cicd-node-app || true
-                        docker rm cicd-node-app || true
-                        docker run -d -p 3000:3000 --name cicd-node-app ${DOCKER_IMAGE}
-                    '''
+                    sh 'docker rm -f cicd-node-app || true'
+                    sh "docker run -d --name cicd-node-app -p 3000:3000 ${DOCKER_IMAGE}"
                 }
             }
         }
